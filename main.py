@@ -13,9 +13,18 @@ LINE = (
 )
 
 
+MAX_CHARS = 200
+
+
+def validate(line: str) -> None:
+    """The entry must be exactly one non-empty line of 1-200 characters."""
+    assert 1 <= len(line) <= MAX_CHARS, f"line is {len(line)} characters"
+    assert line.strip(), "line must not be only whitespace"
+    assert "\n" not in line and "\r" not in line, "line must be a single line"
+
+
 def main() -> None:
-    assert 1 <= len(LINE) <= 200, f"line is {len(LINE)} characters"
-    assert LINE.strip(), "line must not be only whitespace"
+    validate(LINE)
     os.makedirs("/output", exist_ok=True)
     with open("/output/entry.txt", "w", encoding="utf-8") as f:
         f.write(LINE + "\n")
